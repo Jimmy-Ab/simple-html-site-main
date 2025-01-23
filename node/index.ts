@@ -31,8 +31,8 @@ app.get("/", async (req: Request, res: Response): Promise<void> => {
       console.log("Serving from cache");
     } else {
       console.log("Fetching from API");
-        const comments = await fetchComments();
-     
+      const comments = await fetchComments();
+
       cache.comments = {
         data: comments,
         expiry: Date.now() + CACHE_DURATION,
