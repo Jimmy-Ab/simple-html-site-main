@@ -1,24 +1,49 @@
-This project is designed to understand your ability to solve a simple fullstack challenge.
-It is not designed to trick you, its simply to understand your ability.
-Feel free to use google but be sure to understand what you are copy pasting.
+## Features
+- Fetches comments from `https://jsonplaceholder.typicode.com/comments?postId=3`.
+- Filters comments based on a keyword provided by the user.
+- Implements in-memory caching to reduce API calls (cache duration: 5 minutes).
+- Provides real-time search functionality via a front-end interface.
+- Includes unit tests for the API using jest and supertest.
 
-We are looking for HTML, CSS, TS, Clean code, and ability to understand project setup skills in this test.
-The aim is to build a simple search suggestion like google. I.E as user is typing to display a list of results from a hardcoded API endpoint using.
+## Installation
+### Clone this repository:
+```bash
+git clone https://github.com/Jimmy-Ab/simple-html-site-main
+cd simple-html-site-main
+```
+### Install dependencies:
+```bash
+npm install
+```
+## How to Run
+Concurrently is set up to run both the backend and frontend simultaneously, allowing you to develop and test them together seamlessly. 
 
-The flow should look like this:
-User types into UI (on keystroke) -> Use JS to make an ajax request to Node API -> Node API makes request to the jsonplaceholder -> Node API filters data and sends response -> Use JS to show relevant results
+```bash
+npm run dev
+```
+The frontend will run at `http://localhost:3000` and
+The server will run at `http://localhost:3001`.
 
-Use node 22
+## Testing
+### Running Tests
+To Run a test for the server:
 
-1. Figure out how to run the project
-2. In ./script.ts write your code to make your AJAX request to the Node endpoint
-3. In ./node/index.ts write your logic to make request to https://jsonplaceholder.typicode.com/comments?postId=3 and filter by the keywords the user has input (use the `name` property from the API response to compare)
-4. In ./script.ts take the response and display it
-5. In ./style.scss modify the css to give it some form of presentable UI. We need to see you can use semantics CSS & HTML to make things presentable
+```bash
+cd tests
+npx jest index.test.ts
+```
+### The tests include:
 
-Bonus: write some unit tests!
+- Filtering comments based on a keyword.
+- Returning an empty array if no matching comments are found.
+- Handling errors from the third-party API.
+- Returning a 400 error if keyword is missing.
+- Validating caching functionality.
 
+## Dependencies
+### Backend:
+- `express`: Server framework.
+- `cors`: Middleware for CORS support.
+- `node-fetch`: Fetch API for Node.js.
+- `jest & supertest`: Testing libraries.
 
-Submit your code into Github or Gitlab for review. Please ensure the code is accessible publicly
-
-Good luck
