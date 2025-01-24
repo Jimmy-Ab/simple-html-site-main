@@ -13,21 +13,25 @@ document.getElementById('search-input')?.addEventListener('keyup', async (e: Eve
   
     try {
       // Send a request to the backend API with the current keyword
-      console.log("got here.")
-      const API_URL = `https://jsonplaceholder.typicode.com/comments?postId=3/?name=${encodeURIComponent(keyword)}`;
+      const API_URL = `http://localhost:3001/?keyword=${encodeURIComponent(keyword)}`;
       const response = await fetch(API_URL);
-  
-      if (!response.ok) {
+      const $results = document.getElementById('results');
+
+      if (!response.ok && $results) {
+        $results.innerHTML = `<p>Failed to fetch: ${response.statusText}</p>`;
         throw new Error(`Failed to fetch: ${response.statusText}`);
       }
   
       const comments: { name: string }[] = await response.json();
+      if (comments.length === 0 && $results) {
+        $results.innerHTML = `<p>Comment not found.</p>`;
+        return;
+      }
   
       // Generate HTML for the filtered comments
       const resultHtml = comments.map(comment => `<li>${comment.name}</li>`).join('');
   
       // Update the results section in the UI
-      const $results = document.getElementById('results');
       if ($results) {
         $results.innerHTML = resultHtml;
       }
